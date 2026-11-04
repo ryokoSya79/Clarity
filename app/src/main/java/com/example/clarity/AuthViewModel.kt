@@ -164,13 +164,6 @@
 
         fun chekedAuthState(){
             viewModelScope.launch {
-//                Log.e("TEST_TAGS", "файл: ${application.dataStore.data.first().asMap()}")
-//
-//                Log.i("TEST_TAGS", "${uidStateFlow.first()} что-то здесь не так first")
-//                Log.i("TEST_TAGS", "${uidStateFlow.value} что-то здесь не так value")
-
-
-//                val uid = application.dataStore.data.first()[UID_KEY] ?: null
 
                 _isLoading_current.value = true
 
@@ -179,7 +172,7 @@
 
 
                 if (user != null || uid != null){
-                    _startComposoble.value = "zaebok"
+                    _startComposoble.value = "home"
                 }else{
                     _startComposoble.value = "one_promo"
                 }
@@ -194,10 +187,8 @@
 
         fun chekedLoginUser(repository: AuthRepository){
 
-            Log.i("LOGOPOCO", "--- КНОПКА НАЖАТА! Функция chekedLoginUser запустилась ---")
             viewModelScope.launch {
-                Log.i("LOGOPOCO", "${enterName.value} name")
-                Log.i("LOGOPOCO", "${enterPassword.value} pass")
+
                 _isLoading_login.value = true
                 val success = repository.loginExamination(enterName.value, enterPassword.value)
 
@@ -224,12 +215,10 @@
         fun comparisonCode(repository: AuthRepository){
             viewModelScope.launch {
                 _isLoading_editPassword.value = true
-                Log.i("LOGOPOCO", "${enterCode.value == code_generation.value} if enterCode")
-                Log.i("LOGOPOCO", "${enterCode.value} and ${code_generation.value}")
+
 
                 if(enterCode.value == code_generation.value){
 
-                    Log.e("LOGOPOCO", "Вроде запустился ${enterEmail.value}")
 
                     repository.editPassword(enterEmail.value, enterNewPassword.value)
                     _isEditPassword.value = true

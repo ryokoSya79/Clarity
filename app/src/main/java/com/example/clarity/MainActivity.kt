@@ -196,7 +196,7 @@ class MainActivity : ComponentActivity() {
 
 
             val bottomItems = listOf(
-                BottomItem("zaebok", "Home", R.drawable.icon_home, R.drawable.icon_homle_press),
+                BottomItem("home", "Home", R.drawable.icon_home, R.drawable.icon_homle_press),
                 BottomItem("discover", "Discover", R.drawable.icon_search_navigbar, R.drawable.icon_search_navigbar_press),
                 BottomItem("settings", "Settings", R.drawable.icon_settings, R.drawable.icon_settings_press)
             )
@@ -222,7 +222,6 @@ class MainActivity : ComponentActivity() {
                                         selected = isSelected,
                                         modifier = Modifier.testTag("${item.route}_click"),
                                         onClick = {
-                                            Log.i("TEST_TAGS", "${item.route}_click")
                                             navController.navigate(item.route){
                                                 popUpTo(navController.graph.findStartDestination().id){
                                                     saveState = true
@@ -315,7 +314,7 @@ class MainActivity : ComponentActivity() {
                                 ){
                                     SignUp_or_LogIn(
                                         onNavigateToQ_1 = {navController.navigate("onboarding_q1")},
-                                        onNavigateToZaebok = {navController.navigate("zaebok")},
+                                        onNavigateToHome = {navController.navigate("home")},
                                         onNavigateToSignUpScreen = {navController.navigate("signup")},
                                         onNavigateToSignIn = {navController.navigate("signin")}
                                     )
@@ -325,7 +324,7 @@ class MainActivity : ComponentActivity() {
                                     SignIn(
                                         onNavigateToBackSorL = {navController.popBackStack()},
                                         onNavigateToQ_1 = {navController.navigate("onboarding_q1")},
-                                        onNavigateToZaebok = {navController.navigate("zaebok")},
+                                        onNavigateToHome = {navController.navigate("home")},
                                         onNavigateToForgotPassword = {navController.navigate("forgot_password")},
                                         onNavigateToSignUp = {navController.navigate("signup")}
                                     )
@@ -372,7 +371,7 @@ class MainActivity : ComponentActivity() {
                                         animationSpec = tween(400)
                                     ) }){
                                     SuccesMessage(
-                                        onNavigateToZaebok = {navController.navigate("zaebok")}
+                                        onNavigateToHome = {navController.navigate("home")}
                                     )
                                 }
 
@@ -386,9 +385,9 @@ class MainActivity : ComponentActivity() {
                                 }
 
                                 composable(
-                                    "zaebok",
+                                    "home",
                                 ){
-                                    Zaebok(
+                                    Home(
                                         onNavigateToOpenGenre = { genreID ->
                                             navController.navigate("card_genre_open/$genreID")
                                         }
@@ -535,7 +534,7 @@ class MainActivity : ComponentActivity() {
                                 composable("onboarding_q4"){
                                     OnBoardingQ_4(
                                         onNavigateToBack = {navController.navigate("onboarding_q3")},
-                                        onNavigateToZaebok = {navController.navigate("zaebok")}
+                                        onNavigateToHome = {navController.navigate("home")}
                                     )
                                 }
 
@@ -860,7 +859,7 @@ fun Four_Promo_Scene(
 @Composable
 fun SignUp_or_LogIn(
     onNavigateToSignUpScreen: () -> Unit,
-    onNavigateToZaebok: () -> Unit,
+    onNavigateToHome: () -> Unit,
     onNavigateToQ_1: () -> Unit,
     onNavigateToSignIn: () -> Unit,
     modelView: AuthViewModel = viewModel()
@@ -876,12 +875,11 @@ fun SignUp_or_LogIn(
 
 
     LaunchedEffect(continueAuth, isAuthSucces) {
-        Log.i("LOGOPOCO", "${continueAuth} Launched")
 
         if (continueAuth && isAuthSucces){
             onNavigateToQ_1()
         }else if(!continueAuth && isAuthSucces){
-            onNavigateToZaebok()
+            onNavigateToHome()
         }
 
     }
@@ -1269,7 +1267,7 @@ fun SignIn(
     onNavigateToBackSorL: () -> Unit,
     modelView: AuthViewModel = viewModel(),
     onNavigateToQ_1: () -> Unit,
-    onNavigateToZaebok: () -> Unit,
+    onNavigateToHome: () -> Unit,
     onNavigateToForgotPassword: () -> Unit,
     onNavigateToSignUp: () -> Unit
 ){
@@ -1294,19 +1292,18 @@ fun SignIn(
     ) {
 
         LaunchedEffect(continueAuth, isAuthSucces) {
-            Log.i("LOGOPOCO", "${continueAuth} Launched")
 
             if (continueAuth && isAuthSucces){
                 onNavigateToQ_1()
             }else if(!continueAuth && isAuthSucces){
-                onNavigateToZaebok()
+                onNavigateToHome()
             }
 
         }
 
         LaunchedEffect(isLogin) {
             if(isLogin){
-                onNavigateToZaebok()
+                onNavigateToHome()
             }
         }
 
@@ -1482,7 +1479,6 @@ fun SignIn(
 //        }else{
             Button(
                 onClick = {
-                    Log.e("LOGOPOCO", "АЛЛО! КНОПКА НАЖАЛАСЬ В COMPOSE!")
                     modelView.chekedLoginUser(repository)
                 },
                 colors = ButtonDefaults.buttonColors(ButtonColorMain),
@@ -1833,7 +1829,7 @@ fun EnterNewPassword(
 
 @Composable
 fun SuccesMessage(
-    onNavigateToZaebok: () -> Unit
+    onNavigateToHome: () -> Unit
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -1870,7 +1866,7 @@ fun SuccesMessage(
                 .padding(bottom = 48.dp)
         ){
             Button(
-                onClick = {onNavigateToZaebok()},
+                onClick = {onNavigateToHome()},
                 colors = ButtonDefaults.buttonColors(ButtonColorMain),
                 modifier = Modifier
                     .size(width = 334.dp, height = 56.dp)
@@ -2264,7 +2260,7 @@ fun OnBoardingQ_3(
 @Composable
 fun OnBoardingQ_4(
     onNavigateToBack: () -> Unit,
-    onNavigateToZaebok: () -> Unit
+    onNavigateToHome: () -> Unit
 ){
     val context = LocalContext.current
     var name_image = "q4_image"
@@ -2374,7 +2370,7 @@ fun OnBoardingQ_4(
         ){
             Button(
                 onClick = {
-                    onNavigateToZaebok()
+                    onNavigateToHome()
                 },
                 enabled = enableButton,
                 colors = ButtonDefaults.buttonColors(
@@ -2633,7 +2629,7 @@ fun Card_Track(
 }
 
 @Composable
-fun Zaebok(
+fun Home(
     viewModel: AudioViewModel = viewModel(),
     onNavigateToOpenGenre: (String) -> Unit
 ){
@@ -2832,7 +2828,6 @@ fun OpenGenreJazz(
                     MiniCardTrack(
                         track = currentTrack,
                         onClickTrack = {
-                            Log.i("TEST_TAGS", "${currentTrack}")
                             onNavigateToOpenTrack(currentTrack)
                         },
                         modifier = Modifier.testTag("track_${currentTrack.id}_click")

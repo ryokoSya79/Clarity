@@ -130,9 +130,7 @@ class AuthRepository(private val context: Context) {
 
                 val query = database.orderByChild("email").equalTo(enterName)
 
-                Log.i("LOGOPOCO", "${query.get()}, query email")
-                Log.i("LOGOPOCO", "${enterName}, enterName")
-                Log.i("LOGOPOCO", "${enterPassword}, enterPassword")
+
 
                 val snapshot = query.get().await()
 
@@ -142,7 +140,6 @@ class AuthRepository(private val context: Context) {
                     for(userSnapshot in snapshot.children){
                         val dbPassword = userSnapshot.child("password").getValue(String::class.java)
 
-                        Log.i("LOGOPOCO", "${dbPassword}, query Password")
 
                         if(dbPassword == enterPassword){
                             isLoginSuccesful = true
@@ -150,7 +147,6 @@ class AuthRepository(private val context: Context) {
                             context.dataStore.edit {prefs ->
                                 prefs[UID_KEY] = "${userSnapshot.key}"
                             }
-//                            Log.i("TEST_TAGS", "${userSnapshot}, snapshotUser")
                             break
                         }
                     }
@@ -160,7 +156,6 @@ class AuthRepository(private val context: Context) {
                 }
 
             }catch (e: Exception){
-                Log.e("LOGOPOCO", "КРАШ ЗАПРОСА К FIREBASE: ${e.message}", e)
                 return false
             }
     }
@@ -172,7 +167,6 @@ class AuthRepository(private val context: Context) {
 
             return shapshot.exists()
         }catch (e: Exception){
-            Log.e("LOGOPOCO", "КРАШ ЗАПРОСА К FIREBASE: ${e.message}", e)
             return false
         }
     }
@@ -185,7 +179,6 @@ class AuthRepository(private val context: Context) {
             if(snapshot.exists()){
                 for(userSnapshot in snapshot.children){
                     database.child(userSnapshot.key.toString()).child("password").setValue(enterNewPassword)
-                    Log.e("TEST_TAGS", "Всё гуд всё нашлось ${userSnapshot.key}")
 
                     context.dataStore.edit {prefs ->
                         prefs[UID_KEY] = "${userSnapshot.key}"
@@ -196,7 +189,6 @@ class AuthRepository(private val context: Context) {
 
             return snapshot.exists()
         }catch (e: Exception){
-            Log.e("LOGOPOCO", "КРАШ ЗАПРОСА К FIREBASE: ${e.message}", e)
             return false
         }
     }
