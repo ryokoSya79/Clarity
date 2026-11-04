@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Круг радиусом 23 по центру (54,54): по пропорции как в splash_screen -->
+    <path
+        android:pathData="M54,31 A23,23 0 1 1 54,77 A23,23 0 1 1 54,31 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54" android:startY="31"
+                android:endX="54" android:endY="77"
+                android:type="linear">
+                <item android:color="#5F9EA0" android:offset="0.0" />
+                <item android:color="#E0FFFF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+</vector>

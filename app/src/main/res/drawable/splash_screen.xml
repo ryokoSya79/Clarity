@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="226dp"
+    android:height="226dp"
+    android:viewportWidth="226"
+    android:viewportHeight="226">
+
+    <!-- 1. Идеальный закругленный квадрат (120x120, строго по центру) -->
+    <!-- Отрисован через математические дуги (A), чтобы углы были безупречными -->
+    <path android:pathData="M77,53 L149,53 A24,24 0 0 1 173,77 L173,149 A24,24 0 0 1 149,173 L77,173 A24,24 0 0 1 53,149 L53,77 A24,24 0 0 1 77,53 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="53" android:startY="53"
+                android:endX="173" android:endY="173"
+                android:type="linear">
+                <item android:color="#FF7F50" android:offset="0.0" />
+                <item android:color="#9370DB" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 2. Идеальный внутренний круг (радиус 38, строго по центру) -->
+    <!-- Возвращена белая обводка толщиной 4dp -->
+    <path
+        android:pathData="M113,75 A38,38 0 1 1 113,151 A38,38 0 1 1 113,75 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="113" android:startY="75"
+                android:endX="113" android:endY="151"
+                android:type="linear">
+                <item android:color="#5F9EA0" android:offset="0.0" />
+                <item android:color="#E0FFFF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+</vector>
